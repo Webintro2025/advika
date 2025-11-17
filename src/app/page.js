@@ -11,9 +11,7 @@ export default function Home() {
    <div>
     <HomeBanner />
     <OurProducts />
-    <Services />
-    <About />
-    <Classification />
+   
     <Testimonial />
 
     <WhyUnique />
