@@ -34,7 +34,7 @@ const WhyUnique = () => {
   ]
 
   // Replace the placeholder image URLs with your real images in public/uploads when ready.
-  const bgImage = '/uploads/why-advika-bg.jpg' // fallback path — replace as needed
+ // fallback path — replace as needed
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">
@@ -43,7 +43,7 @@ const WhyUnique = () => {
         <div className="absolute inset-0">
           <div
             className="w-full h-full bg-center bg-cover transform transition-transform duration-700 group-hover:scale-105"
-            style={{ backgroundImage: `url(${bgImage})` }}
+            style={{ backgroundImage: `url('/Mint makhana (1).png')` }}
             aria-hidden="true"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/40 to-black/25" />

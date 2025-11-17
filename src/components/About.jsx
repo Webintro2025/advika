@@ -3,9 +3,9 @@ import React from 'react'
 
 const About = () => {
   const images = [
-    'https://picsum.photos/seed/makhana1/1200/900',
-    'https://picsum.photos/seed/makhana2/800/600',
-    'https://picsum.photos/seed/makhana3/800/600',
+    'Peri Peri makhana.png',
+    'Untitled design (2).png',
+    'Pepper salt makhana.png',
   ]
 
   return (

@@ -67,7 +67,7 @@ export default function Services() {
 
 	const iconVariants = {
 		initial: { scale: 1 },
-		hover: { scale: 1.06, rotate: 6 },
+		hover: { scale: 1.06, rotate: 6 	},
 	}
 
 	return (
@@ -89,18 +89,14 @@ export default function Services() {
 					{features.map((f, i) => (
 						<motion.div
 							key={i}
-							className="relative bg-[#0f4b2e] text-white rounded-2xl p-6 pt-14 shadow-lg overflow-hidden"
+							className="relative bg-[#0f4b2e] text-white rounded-2xl p-6 pt-14 shadow-lg overflow-hidden min-h-[300px]"
 							variants={card}
 							whileHover="hover"
 							transition={{ type: 'spring', stiffness: 220, damping: 20 }}
 							role="article"
 							aria-label={f.title}
 						>
-							<motion.div className="absolute -top-8 left-1/2 transform -translate-x-1/2" variants={iconVariants} initial="initial" whileHover="hover">
-								<div className="w-16 h-16 rounded-full bg-[#f6c23e] flex items-center justify-center shadow-md">
-									{f.icon}
-								</div>
-							</motion.div>
+							
 
 							<h3 className="text-lg font-semibold text-white text-center mt-2 mb-3">{f.title}</h3>
 							<div className="mx-auto w-12 h-1 bg-[#f6c23e] rounded mb-4" />

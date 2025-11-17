@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@keyframes slideBg {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-33.3333%);
+	}
+}
+
+/* Tailwind arbitrary animation class used in Classification background */
+.animate-\[slideBg_30s_linear_infinite\] {
+	animation: slideBg 30s linear infinite;
+}

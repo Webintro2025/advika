@@ -1,9 +1,10 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 
 export default function Classification() {
 	const scroller = useRef(null)
+	const autoIndexRef = useRef(0)
 
 	const scroll = (dir = "next") => {
 		const el = scroller.current
@@ -65,9 +66,42 @@ export default function Classification() {
 		}
 	]
 
+	// auto slide horizontally every 3 seconds
+	useEffect(() => {
+		const el = scroller.current
+		if (!el) return
+		const interval = setInterval(() => {
+			if (!el) return
+			const width = el.clientWidth
+			const maxScroll = el.scrollWidth - width
+			let nextIndex = autoIndexRef.current + 1
+			if (nextIndex * width * 0.6 > maxScroll) {
+				nextIndex = 0
+				el.scrollTo({ left: 0, behavior: "smooth" })
+			} else {
+				el.scrollBy({ left: width * 0.6, behavior: "smooth" })
+			}
+			autoIndexRef.current = nextIndex
+		}, 3000)
+		return () => clearInterval(interval)
+	}, [])
+
 	return (
-		<section className="py-14 bg-gray-50">
-			<div className="max-w-7xl mx-auto px-6 lg:px-8">
+		<section className="py-16 relative overflow-hidden">
+			{/* big animated background using product images */}
+			<div className="pointer-events-none absolute inset-0 opacity-20">
+				<div className="w-[300%] h-full flex animate-[slideBg_30s_linear_infinite]">
+					{[...cards, ...cards].map((c, i) => (
+						<div
+							key={i}
+							className="w-1/3 bg-cover bg-center"
+							style={{ backgroundImage: `url(${c.img})` }}
+						/>
+					))}
+				</div>
+			</div>
+
+			<div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 					{/* Left intro */}
 					<div className="pt-6">
@@ -106,8 +140,8 @@ export default function Classification() {
 										key={idx}
 										className="group relative min-w-[300px] md:min-w-[360px] lg:min-w-[380px]"
 									>
-										<div className="rounded-2xl overflow-hidden shadow-lg">
-											<div className="h-60 sm:h-64 lg:h-72 bg-gray-100">
+										<div className="rounded-2xl overflow-hidden shadow-lg bg-gray-800/80 backdrop-blur">
+											<div className="h-72 sm:h-80 lg:h-96 bg-gray-100">
 												<img
 													src={c.img}
 													alt={c.title}
