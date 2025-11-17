@@ -15,22 +15,6 @@ export async function GET(req, { params }) {
   }
 }
 
-
-export async function GET(req, { params }) {
-  try {
-    const id = parseInt(params.id, 10)
-    if (Number.isNaN(id)) return new Response(JSON.stringify({ error: 'Invalid id' }), { status: 400 })
-
-    const category = await prisma.category.findUnique({ where: { id } })
-    if (!category) return new Response(JSON.stringify({ error: 'Not found' }), { status: 404 })
-
-    return new Response(JSON.stringify(category), { status: 200 })
-  } catch (err) {
-    console.error(err)
-    return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 })
-  }
-}
-
 export async function PUT(req, { params }) {
   try {
     const id = parseInt(params.id, 10)
