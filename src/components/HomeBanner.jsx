@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 
-const slides = ["/banenerr.jpg", "/banner2.jpg"]
+const slides = ["/banenerr.jpg", "/banner21.jpg"]
 
 const HomeBanner = () => {
   const [current, setCurrent] = useState(0)
