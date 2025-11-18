@@ -44,7 +44,7 @@ const Footer = () => {
                   'Makhana Pasta',
                   'Vermicile',
                   'Instant Makhana Kheer',
-                  'Dry Fruits',
+                 
                 ].map((title, index) => (
                   <li key={title} className="truncate">
                     <Link
@@ -95,7 +95,7 @@ const Footer = () => {
                   </div>
                   <div>
                     <p className="text-gray-300 text-sm">Phone</p>
-                    <p className="text-white font-semibold">+91-8802964291</p>
+                    <p className="text-white font-semibold">+91-7678556015</p>
                   </div>
                 </div>
                 

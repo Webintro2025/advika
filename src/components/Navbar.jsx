@@ -77,7 +77,7 @@ export default function Navbar() {
 								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
 									<path d="M22 16.92V21a1 1 0 0 1-1.11 1 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2 3.11 1 1 0 0 1 3 2h4.09a1 1 0 0 1 1 .75c.12.66.33 1.3.62 1.9a1 1 0 0 1-.24 1.09L7.91 7.91a16 16 0 0 0 6 6l1.17-1.17a1 1 0 0 1 1.09-.24c.6.29 1.24.5 1.9.62a1 1 0 0 1 .75 1V22z" fill="currentColor" />
 								</svg>
-								<a href="tel:+918802964291" className="text-white">+91 8802964291</a>
+								<a href="tel:+917678556015" className="text-white">+91 7678556015</a>
 							</div>
 							<div className="flex items-center gap-2">
 								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -167,7 +167,7 @@ export default function Navbar() {
 														</ul>
 													</div>
 												</div>
-
+<a href="/dry-fruits" className="text-gray-700 hover:text-[#0f4b2e]">Dry Fruits</a>
 												<a href="/contact" className="text-gray-700 hover:text-[#0f4b2e]">Contact</a>
 											</div>
 						</div>
@@ -238,7 +238,7 @@ export default function Navbar() {
 							<a href="/contact" className="block text-gray-700">Contact</a>
 							<button onClick={() => setShowLogin(true)} className="block text-gray-700">Login</button>
 							<div className="pt-2 border-t mt-2">
-								<a href="tel:+918802964291" className="block text-sm text-[#0f4b2e]">+91 8802964291</a>
+								<a href="tel:+917678556015" className="block text-sm text-[#0f4b2e]">+91 7678556015</a>
 								<a href="mailto:advikanaturalsllp@gmail.com" className="block text-sm text-[#0f4b2e]">advikanaturalsllp@gmail.com</a>
 							</div>
 						</div>
