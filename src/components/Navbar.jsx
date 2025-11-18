@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion } from 'framer-motion'
 import CartSidebar from '../components/CartSidebar'
 import LoginModal from './LoginModal'
@@ -9,7 +9,7 @@ import { fetchCategories } from '@/store/apiSlice'
 
 export default function Navbar() {
 	const [mobileOpen, setMobileOpen] = useState(false)
-		const [showCart, setShowCart] = useState(false)
+	const [showCart, setShowCart] = useState(false)
 
 	const [scrolled, setScrolled] = useState(false)
 	const [showLogin, setShowLogin] = useState(false)
@@ -30,33 +30,35 @@ export default function Navbar() {
 		return () => window.removeEventListener('scroll', onScroll)
 	}, [])
 
-					const [productsOpen, setProductsOpen] = useState(false)
-					const [mobileProductsOpen, setMobileProductsOpen] = useState(false)
+	const [productsOpen, setProductsOpen] = useState(false)
+	const [mobileProductsOpen, setMobileProductsOpen] = useState(false)
+	const closeTimeoutRef = useRef(null)
 
 					const dispatch = useDispatch()
 					const categories = useSelector((state) => state.api.categories || [])
 					const loadingCategories = useSelector((state) => state.api.categoriesLoading)
 					const categoriesError = useSelector((state) => state.api.categoriesError)
 
-					useEffect(() => {
-						if (productsOpen && (!categories || categories.length === 0)) {
-							dispatch(fetchCategories())
-						}
-					}, [productsOpen, categories, dispatch])
+	useEffect(() => {
+		if (productsOpen && (!categories || categories.length === 0)) {
+			dispatch(fetchCategories())
+		}
+	}, [productsOpen, categories, dispatch])
 
-					useEffect(() => {
-						// expose global helper to open cart
-						window.openCart = () => setShowCart(true)
-						window.closeCart = () => setShowCart(false)
-						return () => {
-							try { delete window.openCart } catch (e) {}
-							try { delete window.closeCart } catch (e) {}
-						}
-					}, [])
+	useEffect(() => {
+		// expose global helper to open cart
+		window.openCart = () => setShowCart(true)
+		window.closeCart = () => setShowCart(false)
+		return () => {
+			if (closeTimeoutRef.current) {
+				clearTimeout(closeTimeoutRef.current)
+			}
+			try { delete window.openCart } catch (e) {}
+			try { delete window.closeCart } catch (e) {}
+		}
+	}, [])
 
-
-
-		return (
+	return (
 		<header className="w-full">
 			{/* Top promo bar */}
 			<div className="bg-[#0f4b2e] text-white text-sm">
@@ -110,7 +112,7 @@ export default function Navbar() {
 								<img src="/logo.jpg" alt="Advika Naturals LLP" className="h-10 w-auto object-contain" />
 								<div>
 									<span className="block text-lg font-extrabold text-[#0f4b2e]">Advika Naturals LLP</span>
-									<span className="block text-sm text-[#0f4b2e]/80 -mt-1">Nature to Home</span>
+								
 								</div>
 							</a>
 
@@ -122,8 +124,22 @@ export default function Navbar() {
 												{/* Products dropdown - single link that shows a product list on hover/click */}
 												<div
 													className="relative"
-													onMouseEnter={() => setProductsOpen(true)}
-													onMouseLeave={() => setProductsOpen(false)}
+													onMouseEnter={() => {
+														if (closeTimeoutRef.current) {
+															clearTimeout(closeTimeoutRef.current)
+															closeTimeoutRef.current = null
+														}
+														setProductsOpen(true)
+													}}
+													onMouseLeave={() => {
+														if (closeTimeoutRef.current) {
+															clearTimeout(closeTimeoutRef.current)
+														}
+														closeTimeoutRef.current = setTimeout(() => {
+															setProductsOpen(false)
+															closeTimeoutRef.current = null
+														}, 700)
+													}}
 												>
 													<button
 														onClick={() => setProductsOpen((s) => !s)}

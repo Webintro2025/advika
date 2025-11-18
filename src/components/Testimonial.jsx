@@ -107,8 +107,8 @@ export default function Testimonial() {
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 2l3 7h7l-5.5 4.5L19 21l-7-4-7 4 1.5-7.5L2 9h7l3-7z" />
 								</svg>
 							</div>
-							<div ref={statRefs[0]} className="text-3xl font-extrabold text-yellow-400">0</div>
-							<div className="mt-2 text-sm text-white/80">Countries</div>
+							<div ref={statRefs[0]} className="text-4xl md:text-5xl font-extrabold text-yellow-400">0</div>
+							<div className="mt-2 text-base md:text-lg text-white/80">Countries</div>
 						</div>
 
 						<div className="flex flex-col items-center border-l border-white/20">
@@ -117,8 +117,8 @@ export default function Testimonial() {
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7l6 6-6 6M21 7l-6 6 6 6" />
 								</svg>
 							</div>
-							<div ref={statRefs[1]} className="text-3xl font-extrabold text-yellow-400">0</div>
-							<div className="mt-2 text-sm text-white/80">District Covered</div>
+							<div ref={statRefs[1]} className="text-4xl md:text-5xl font-extrabold text-yellow-400">0</div>
+							<div className="mt-2 text-base md:text-lg text-white/80">District Covered</div>
 						</div>
 
 						<div className="flex flex-col items-center border-l border-white/20">
@@ -127,8 +127,8 @@ export default function Testimonial() {
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h4l3 8 4-16 3 8h4" />
 								</svg>
 							</div>
-							<div ref={statRefs[2]} className="text-3xl font-extrabold text-yellow-400">0</div>
-							<div className="mt-2 text-sm text-white/80">Product Category</div>
+							<div ref={statRefs[2]} className="text-4xl md:text-5xl font-extrabold text-yellow-400">0</div>
+							<div className="mt-2 text-base md:text-lg text-white/80">Product Category</div>
 						</div>
 
 						<div className="flex flex-col items-center border-l border-white/20">
@@ -137,8 +137,8 @@ export default function Testimonial() {
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 9l3 3m0 0l-3 3m3-3H3" />
 								</svg>
 							</div>
-							<div ref={statRefs[3]} className="text-3xl font-extrabold text-yellow-400">0</div>
-							<div className="mt-2 text-sm text-white/80">Happy Clients</div>
+							<div ref={statRefs[3]} className="text-4xl md:text-5xl font-extrabold text-yellow-400">0</div>
+							<div className="mt-2 text-base md:text-lg text-white/80">Happy Clients</div>
 						</div>
 					</div>
 				</div>

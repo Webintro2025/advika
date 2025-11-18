@@ -41,7 +41,7 @@ export default function OurProducts() {
 		}
 
 		const reversed = [...products].reverse()
-		const chunks = chunkArray(reversed, 6)
+		const chunks = chunkArray(reversed, 8)
 
 		return (
 			<section className="py-12 bg-gray-50">
@@ -69,7 +69,7 @@ export default function OurProducts() {
 						<div className="space-y-12">
 							{chunks.map((group, index) => (
 								<div key={index} className="space-y-8">
-									<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+									<div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 										{group.map((product) => {
 											const primaryImage = product.images?.[0]?.url
 											return (
@@ -79,7 +79,7 @@ export default function OurProducts() {
 													className="block group"
 												>
 													<article className="bg-white rounded-xl shadow-sm group-hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full">
-														<div className="h-80 sm:h-96 bg-gray-100">
+														<div className="aspect-3/4 sm:aspect-4/5 bg-gray-100 overflow-hidden">
 															{primaryImage ? (
 																<img
 																	src={primaryImage}
@@ -92,16 +92,13 @@ export default function OurProducts() {
 																</div>
 															)}
 														</div>
-														<div className="p-4 flex-1 flex flex-col">
+														<div className="p-3 sm:p-4 flex-1 flex flex-col">
 															<h3 className="font-semibold text-lg text-[#08381f] mb-1 line-clamp-1 group-hover:text-[#0f4b2e]">
 																{product.name}
 															</h3>
 															{product.category && (
 																<p className="text-xs text-green-600 mb-1">{product.category.name}</p>
 															)}
-															<p className="text-sm text-gray-600 line-clamp-2 mb-3">
-																{product.description || "No description provided."}
-															</p>
 															<div className="mt-auto flex items-center justify-between">
 																<span className="font-semibold text-[#0f4b2e]">
 																	₹{Number(product.price || 0).toFixed(2)}

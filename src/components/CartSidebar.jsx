@@ -50,12 +50,8 @@ export default function CartSidebar({ visible, onClose }) {
         <ul className="space-y-3">
           {items.map((it) => (
             <li key={it.id} className="flex items-center gap-3">
-              <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">
-                {it.product && it.product.imageUrls && it.product.imageUrls[0] ? (
-                  <img src={it.product.imageUrls[0]} alt={it.product.name} className="w-full h-full object-cover" />
-                ) : null}
-              </div>
-              <div className="flex-1">
+              
+              <div className="flex-1 pl-16">
                 <div className="font-medium text-sm">{it.product?.name}</div>
                 <div className="text-xs text-gray-500">₹{it.product?.price}</div>
                 <div className="mt-2 flex items-center gap-2">
