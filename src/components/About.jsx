@@ -31,7 +31,7 @@ const About = () => {
           </p>
 
           <p className="text-gray-700 mb-6 leading-relaxed">
-            Guided by <strong className="text-gray-900">Mr. Suman</strong> and <strong className="text-gray-900">Mr. Ravi Kumar</strong>, our small but passionate team is dedicated to delivering premium-quality snacks that blend traditional taste with modern health values.
+            Guided by <strong className="text-gray-900">Mrs. Suman</strong> and <strong className="text-gray-900">Mr. Ravi Kumar</strong>, our small but passionate team is dedicated to delivering premium-quality snacks that blend traditional taste with modern health values.
           </p>
 
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700">
