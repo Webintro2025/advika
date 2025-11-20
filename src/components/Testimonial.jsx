@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -9,6 +9,33 @@ gsap.registerPlugin(ScrollTrigger)
 export default function Testimonial() {
 	const statRefs = [useRef(null), useRef(null), useRef(null), useRef(null)]
 	const statValues = [10, 128, 35, 3925]
+
+	const testimonials = [
+		{
+			title: 'Best quality Makhana I’ve ever had!',
+			text:
+				'“I’ve been buying makhanas from local shops for years, but nothing compares to the freshness and crunch I got from Advika Naturals. Totally pure, with no artificial polish or added flavors—just as nature intended. Highly recommended!”',
+			author: '— Ritu Sharma, Delhi'
+		},
+		{
+			title: 'Perfect healthy snack for my kids',
+			text:
+				'“I’m always looking for healthy snacks for my children, and Advika Naturals’ roasted makhana is a hit! Crunchy, tasty, and guilt-free. Plus, I love knowing it’s completely natural and chemical-free.”',
+			author: '— Aman Verma, Pune'
+		},
+		{
+			title: 'Premium quality at a great price',
+			text:
+				'“I was pleasantly surprised by how premium the makhanas from Advika Naturals were—clean, big-sized, and super crunchy. I’ve made them a regular part of my daily evening snack. Value for money and top-notch!”',
+			author: '— Sneha Rajput, Bangalore'
+		},
+		{
+			title: 'Loved the flavor and packaging!',
+			text:
+				'“I ordered flavored makhana varieties from Advika Naturals and was impressed with both the taste and the eco-friendly packaging. Everything felt thoughtfully done. You’ve earned a loyal customer!”',
+			author: '— Rahul Sinha, Jaipur'
+		}
+	]
 
 	useEffect(() => {
 		// Animate the numeric counters when they scroll into view
@@ -33,68 +60,98 @@ export default function Testimonial() {
 		})
 	}, [])
 
-	const avatarVariant = {
-		hidden: { opacity: 0, y: 12, scale: 0.9 },
-		visible: (i = 1) => ({
-			opacity: 1,
-			y: 0,
-			scale: 1,
-			transition: { delay: i * 0.12, duration: 0.5 }
-		})
-	}
+	const [currentIndex, setCurrentIndex] = useState(0)
+
+	// Auto slide between two testimonial pages every 5 seconds
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentIndex((prev) => (prev + 1) % 2)
+		}, 3000)
+		return () => clearInterval(interval)
+	}, [])
 
 	return (
 		<section className="w-full">
 			<div className="max-w-5xl mx-auto text-center py-16 px-6">
-				<motion.p initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-sm text-emerald-600 font-medium">Experiences That Speak for Themselves</motion.p>
+				<motion.p
+					initial={{ opacity: 0, y: 6 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					className="text-sm text-emerald-600 font-medium"
+				>
+					What Our Customers Say
+				</motion.p>
 
-				<motion.h2 initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mt-3 text-4xl md:text-5xl font-extrabold text-[#0b3b2b]">What People Love About Us</motion.h2>
+				<motion.h2
+					initial={{ opacity: 0, y: 10 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.5 }}
+					className="mt-3 text-4xl md:text-5xl font-extrabold text-[#0b3b2b]"
+				>
+					Trusted by Makhana Lovers Across India
+				</motion.h2>
 
-				<motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mt-3 text-sm text-gray-500">Nature to Home Agro Traders truly stands out as a makhana dealer and supplier</motion.p>
+				<motion.p
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					viewport={{ once: true }}
+					className="mt-3 text-sm text-gray-500 max-w-2xl mx-auto"
+				>
+					Real stories from people who chose Advika Naturals for
+					pure, crunchy and truly natural makhana.
+				</motion.p>
 
-				<div className="mt-6 flex justify-center">
-					<svg width="120" height="28" viewBox="0 0 120 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M10 14C30 6 50 22 70 14C90 6 110 22 120 14" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round"/>
-					</svg>
-				</div>
+				<div className="mt-10 overflow-hidden">
+					<motion.div
+						initial={{ opacity: 0, y: 12 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						className="flex transition-transform duration-500 ease-out"
+						style={{ transform: `translateX(-${currentIndex * 100}%)`, width: '200%' }}
+					>
+						{/* Page 1: first three testimonials */}
+						<div className="w-full flex flex-col lg:flex-row">
+							{testimonials.slice(0, 3).map((t, idx) => (
+								<div
+									key={idx}
+									className="w-full lg:w-1/3 px-3 md:px-4 mb-6 lg:mb-0"
+								>
+									<div className="bg-white rounded-2xl shadow-sm p-6 md:p-7 border border-emerald-50 h-full">
+										<p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">
+											{t.title}
+										</p>
+										<p className="mt-2 text-yellow-400 text-base">★★★★★</p>
+										<p className="mt-3 text-gray-700 text-sm md:text-base leading-relaxed">
+											{t.text}
+										</p>
+										<p className="mt-4 text-sm font-semibold text-gray-800">{t.author}</p>
+									</div>
+								</div>
+							))}
+						</div>
 
-				<div className="relative mt-10">
-					<button aria-label="prev" className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-emerald-700 text-emerald-700 hover:bg-emerald-50">
-						<svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-						</svg>
-					</button>
-
-					<div className="flex items-center justify-center gap-6">
-						{["https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80", "https://images.unsplash.com/photo-1545996124-1b8e9b9a1c45?w=200&q=80", "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=200&q=80"].map((src, idx) => (
-							<motion.div key={idx} custom={idx} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={avatarVariant} className={`${idx === 1 ? '-mt-3' : ''} w-16 h-16 rounded-full ring-4 ring-white overflow-hidden shadow-lg`}>
-								<motion.img whileHover={{ scale: 1.08 }} src={src} alt={`avatar-${idx}`} className="w-full h-full object-cover" />
-							</motion.div>
-						))}
-					</div>
-
-					<button aria-label="next" className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-emerald-700 text-emerald-700 hover:bg-emerald-50">
-						<svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-						</svg>
-					</button>
-				</div>
-
-				<motion.blockquote initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mt-8 text-center max-w-3xl mx-auto text-gray-700 leading-relaxed text-lg md:text-xl font-medium px-4">
-					I love how their makhanas are both affordable and chemical-free. It's the perfect healthy snack for my family, delivery makes it even more convenient!
-				</motion.blockquote>
-
-				<div className="mt-6 flex flex-col items-center">
-					<motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="flex items-center space-x-1">
-						{Array.from({ length: 5 }).map((_, i) => (
-							<svg key={i} xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118L10 13.347l-3.38 2.455c-.784.57-1.84-.196-1.54-1.118l1.286-3.966a1 1 0 00-.364-1.118L2.62 9.393c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.966z" />
-							</svg>
-						))}
+						{/* Page 2: last testimonial centered */}
+						<div className="w-full flex justify-center">
+							{testimonials.slice(3, 4).map((t, idx) => (
+								<div
+									key={idx}
+									className="w-full lg:w-1/3 px-3 md:px-4"
+								>
+									<div className="bg-white rounded-2xl shadow-sm p-6 md:p-7 border border-emerald-50 h-full">
+										<p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">
+											{t.title}
+										</p>
+										<p className="mt-2 text-yellow-400 text-base">★★★★★</p>
+										<p className="mt-3 text-gray-700 text-sm md:text-base leading-relaxed">
+											{t.text}
+										</p>
+										<p className="mt-4 text-sm font-semibold text-gray-800">{t.author}</p>
+									</div>
+								</div>
+							))}
+						</div>
 					</motion.div>
-
-					<p className="mt-4 text-sm font-semibold text-gray-700 uppercase">Priya Verma</p>
-					<p className="text-xs text-gray-400">Customer</p>
 				</div>
 			</div>
 

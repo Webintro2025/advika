@@ -6,13 +6,16 @@ import HomeBanner from "@/components/HomeBanner";
 import About from "@/components/About";
 import WhyUnique from "@/components/WhyUnique";
 import OurProducts from "@/components/OurProducts";
+import Million from "@/components/Million";
 export default function Home() {
   return (
    <div>
     <HomeBanner />
     <OurProducts />
+    <Million />
    
     <Testimonial />
+    
 
     <WhyUnique />
 

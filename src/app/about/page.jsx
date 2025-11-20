@@ -1,6 +1,7 @@
 import React from 'react'
 import About from '../../components/About'
 import WhyUnique from '../../components/WhyUnique'
+import Million from '@/components/Million'
 
 export default function Page() {
   return (
@@ -15,6 +16,9 @@ export default function Page() {
       <div className="py-12">
         <div className="max-w-7xl mx-auto px-6">
           <About />
+        </div>
+        <div>
+<Million />          
         </div>
       </div>
 
