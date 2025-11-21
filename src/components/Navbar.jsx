@@ -13,6 +13,7 @@ export default function Navbar() {
 
 	const [scrolled, setScrolled] = useState(false)
 	const [showLogin, setShowLogin] = useState(false)
+	const [user, setUser] = useState(null)
 
 	// framer-motion variants (kept for reference)
 	const navVariants = {
@@ -174,12 +175,11 @@ export default function Navbar() {
 
 						<div className="flex items-center gap-4">
 							{/* Login button (desktop) */}
-							<div className="hidden lg:flex items-center gap-2">
-								<button onClick={() => setShowLogin(true)} className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100 text-gray-700">
-									<svg className="w-5 h-5 text-[#1B5439]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z" fill="currentColor"/></svg>
-									<span className="font-medium">Login</span>
+							{!user && (
+								<button onClick={() => setShowLogin(true)} className="block text-gray-700">
+									Login
 								</button>
-							</div>
+							)}
 
 							{/* Cart button */}
 							<div className="ml-3">
@@ -236,10 +236,12 @@ export default function Navbar() {
 							</div>
 
 							<a href="/contact" className="block text-gray-700">Contact</a>
-							<button onClick={() => setShowLogin(true)} className="block text-gray-700">Login</button>
+							{!user && (
+								<button onClick={() => setShowLogin(true)} className="block text-gray-700">Login</button>
+							)}
 							<div className="pt-2 border-t mt-2">
 								<a href="tel:+917678556015" className="block text-sm text-[#0f4b2e]">+91 7678556015</a>
-								<a href="mailto:advikanaturalsllp@gmail.com" className="block text-sm text-[#0f4b2e]">advikanaturalsllp@gmail.com</a>
+								<a href="mailto:advikanaturllp@gmail.com" className="block text-sm text-[#0f4b2e]">advikanaturalsllp@gmail.com</a>
 							</div>
 						</div>
 					</div>
@@ -247,11 +249,14 @@ export default function Navbar() {
 
 				{/* Cart sidebar (mounted at top-level in navbar) */}
 				<CartSidebar visible={showCart} onClose={(v) => setShowCart(v)} />
-				<LoginModal open={showLogin} onClose={() => setShowLogin(false)} onSuccess={(data) => {
-					// optional: trigger UI update after login
-					setShowLogin(false)
-					// you can add additional behavior here, e.g., refresh user profile
-				}} />
+				<LoginModal
+  open={showLogin}
+  onClose={() => setShowLogin(false)}
+  onSuccess={(data) => {
+    setShowLogin(false)
+    setUser(data?.user || true)  // OTP verify hote hi logged-in mark
+  }}
+/>
 			</motion.nav>
 			{/* spacer to preserve document flow when nav is fixed (height matches nav bar)
 			    If the promo bar above is tall, increase this so content isn't covered. */}
