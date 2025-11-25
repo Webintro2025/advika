@@ -114,7 +114,9 @@ const Footer = () => {
                 
                 <div className="mt-2">
                   <p className="text-gray-300 text-sm">Address</p>
-                  <p className="text-white text-sm">0, Gulzarbagh, Math Laxmanpur, Kori Tola, Alamganj, Patna-800007, Bihar, India</p>
+                  <p className="text-white text-sm">0, Gulzarbagh, Math Laxmanpur, Kori Tola, Alamganj, Patna-800007, Bihar, India</p> 
+                  <p className='text-white text-sm'> Branch Address : Oxy homez flat no O-309 Loni road bhopura tila mod Near DMart Ghaziabad 
+201005 </p>
                 </div>
               </div>
               

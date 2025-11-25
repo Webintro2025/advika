@@ -29,8 +29,11 @@ const GetInTouch = () => {
               <div>
                 <h3 className="text-[#1B5439] font-semibold text-sm mb-1">Our Location</h3>
                 <p className="text-[#1B5439] text-sm leading-relaxed">
-                  0, Gulzarbagh, Math Laxmanpur, Kori Tola, Alamganj,<br />
-                  Patna-800007, Bihar, India
+                  Gulzarbagh, Math Laxmanpur, Kori Tola, Alamganj,<br />
+                  Patna-800007, Bihar, India <br />
+                  Branch Address : Oxy homez flat no O-309 Loni road bhopura tila mod Near DMart Ghaziabad 
+201005 
+
                 </p>
               </div>
             </div>

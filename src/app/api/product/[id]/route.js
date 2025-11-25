@@ -48,17 +48,21 @@ export async function GET(req, { params }) {
     const product = await prisma.product.findUnique({ where: { id }, include: { category: true, images: true } })
     if (!product) return new Response(JSON.stringify({ error: 'Not found' }), { status: 404 })
 
-    // normalize image URLs to absolute (helps when src needs full URL)
-    let origin = null
-    try {
-      origin = new URL(req.url).origin
-    } catch (e) {
-      origin = ''
-    }
+    // normalize image URLs to absolute using env-based base URL
+    const envBase = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000'
 
     const images = (product.images || []).map((img) => {
       const raw = img.url || ''
-      const url = raw && String(raw).startsWith('http') ? raw : `${origin}${raw.startsWith('/') ? raw : '/' + raw}`
+      let url = raw
+
+      if (raw && String(raw).startsWith('http://localhost')) {
+        // replace any localhost URLs with the configured base
+        url = raw.replace(/^http:\/\/localhost(?::\d+)?/i, envBase)
+      } else if (raw && !String(raw).startsWith('http')) {
+        // relative path -> prefix with env base
+        url = `${envBase}${raw.startsWith('/') ? raw : '/' + raw}`
+      }
+
       return { ...img, url }
     })
     const imageUrls = images.map((i) => i.url)

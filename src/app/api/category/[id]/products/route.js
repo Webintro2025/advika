@@ -34,14 +34,22 @@ export async function GET(req, { params }) {
       prisma.product.count({ where: { categoryId: id } }),
     ])
 
-    // normalize image URLs to absolute
-    let origin = ''
-    try { origin = new URL(req.url).origin } catch (e) { origin = '' }
+    // normalize image URLs to absolute using env-based base URL
+    const envBase = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000'
 
     const products = productsRaw.map((p) => {
       const imgs = (p.images || []).map((img) => {
         const raw = img.url || ''
-        const url = raw && String(raw).startsWith('http') ? raw : `${origin}${raw.startsWith('/') ? raw : '/' + raw}`
+        let url = raw
+
+        if (raw && String(raw).startsWith('http://localhost')) {
+          // replace any localhost URLs with the configured base
+          url = raw.replace(/^http:\/\/localhost(?::\d+)?/i, envBase)
+        } else if (raw && !String(raw).startsWith('http')) {
+          // relative path -> prefix with env base
+          url = `${envBase}${raw.startsWith('/') ? raw : '/' + raw}`
+        }
+
         return { ...img, url }
       })
       const imageUrls = imgs.map((i) => i.url)

@@ -7,7 +7,7 @@ const Maps = () => {
   const mapInstance = useRef(null);
 
   const destinationLatLng = [28.71406000,77.32915000];
-  const destinationAddress = '0, Gulzarbagh, Math Laxmanpur, Kori Tola, Alamganj, Patna-800007, Bihar, India';
+  const destinationAddress = 'Gulzarbagh, Math Laxmanpur, Kori Tola, Alamganj, Patna-800007, Bihar, India';
     
   
 
