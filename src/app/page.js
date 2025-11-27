@@ -6,6 +6,8 @@ import HomeBanner from "@/components/HomeBanner";
 import About from "@/components/About";
 import WhyUnique from "@/components/WhyUnique";
 import OurProducts from "@/components/OurProducts";
+import GetInTouch from "@/components/GetInTouch";
+import Map from "@/components/Map";
 import Million from "@/components/Million";
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
     
 
     <WhyUnique />
+      <GetInTouch />
+      <Map />
 
     </div>
   );

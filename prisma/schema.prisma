@@ -14,6 +14,8 @@ model User {
   otpExpiresAt DateTime?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  orders       Order[]   // 👈 new
 }
 
 model Category {
@@ -25,16 +27,17 @@ model Category {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
   description String?
-  price       Float   @default(0)
-  category    Category @relation(fields: [categoryId], references: [id])
+  price       Float         @default(0)
+  category    Category      @relation(fields: [categoryId], references: [id])
   categoryId  Int
   images      ProductImage[]
   cartItems   CartItem[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  orderItems  OrderItem[]   // 👈 new
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
 
 model ProductImage {
@@ -47,9 +50,9 @@ model ProductImage {
 
 model Cart {
   id         Int        @id @default(autoincrement())
-  // For guest carts, userId can be null. If you want auth, link to User.
   userId     Int?
   items      CartItem[]
+  orders     Order[]     // 👈 new (ek cart se multiple orders ho sakte hain)
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }
@@ -63,4 +66,69 @@ model CartItem {
   quantity  Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id              Int          @id @default(autoincrement())
+  orderNumber     String       @unique
+  userId          Int?
+  user            User?        @relation(fields: [userId], references: [id])
+
+  cartId          Int?
+  cart            Cart?        @relation(fields: [cartId], references: [id])
+
+  items           OrderItem[]
+  totalAmount     Float
+  currency        String       @default("INR")
+
+  razorpayOrderId String?
+  status          OrderStatus  @default(PENDING)
+
+  shippingName    String?
+  shippingPhone   String?
+  shippingAddress String?
+
+  payments        Payment[]    // 👈 ye line zaroor honi chahiye
+
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int      @default(1)
+  price     Float    // snapshot of price at time of order
+}
+
+model Payment {
+  id               Int        @id @default(autoincrement())
+  order            Order      @relation(fields: [orderId], references: [id])
+  orderId          Int
+  amount           Float
+  currency         String     @default("INR")
+
+  razorpayOrderId  String
+  razorpayPaymentId String?
+  razorpaySignature String?
+
+  status           PaymentStatus @default(PENDING)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
 }

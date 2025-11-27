@@ -82,7 +82,7 @@ const WhyUnique = () => {
 
             <div className="bg-white rounded-xl p-6 shadow-md hover:translate-y-[-4px] transform transition-transform duration-300">
               <h3 className="text-lg font-semibold text-[#1B5439] mb-2">Meet Our Founders</h3>
-              <p className="text-sm text-gray-700">Guided by Mr. Suman and Mr. Ravi Kumar, our passionate team is dedicated to delivering premium-quality snacks.</p>
+              <p className="text-sm text-gray-700">Guided by Mrs. Suman and Mr. Ravi Kumar, our passionate team is dedicated to delivering premium-quality snacks.</p>
               <div className="mt-4">
                 <a href="/about" className="inline-block bg-[#1B5439] text-white px-4 py-2 rounded-md hover:bg-[#163f2e] transition-colors">Learn More</a>
               </div>

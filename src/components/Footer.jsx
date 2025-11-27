@@ -13,9 +13,9 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <div className="mb-4">
               <Link href="/">
-                <h1 className="text-2xl font-bold text-white mb-2 cursor-pointer" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                <h2 className="text-2xl font-bold text-white mb-2 cursor-pointer" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                   Advika Naturals LLP
-                </h1>
+                </h2>
               </Link>
               <p className="text-sm text-[#F6C548] font-medium mb-3">Natural & Healthy Makhana Products</p>
               <p className="text-gray-300 text-sm leading-relaxed">
