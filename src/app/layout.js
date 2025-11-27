@@ -23,7 +23,7 @@ export const metadata = {
   keywords:[
     "Roasted Makhana Suppliers in Patna, Flavoured Makhana Suppliers in Patna, Roasted Makhana Manufacturer in Patna, Flavoured Makhana Manufacturer in Patna, Black Pepper Makhana Suppliers in Patna, Classic Salted Makhana Suppliers in Patna, Cheese Makhana Suppliers in Patna, Pudina Makhana Suppliers in Patna, Peri Peri Makhana Suppliers in Patna, Makhana Cookies And Drinks Suppliers And Manufacturer in Patna, Flavoured Makhana Suppliers And Manufacturer in Patna, Roasted Makhana Suppliers And Manufacturer in Patna"],
     verification:{
-      google: "google-site-verification=XXXXXX"
+      google: "MxaomQx-nTXcJy3aBPAAXjaN4qjDr35sySBEmcsq1dg"
     }
 };
 
