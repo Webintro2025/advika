@@ -3,9 +3,11 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCart, increaseCartItem, decreaseCartItem, removeCartItem } from '@/store/apiSlice'
+import { useRouter } from 'next/navigation'
 
 export default function CartSidebar({ visible, onClose }) {
   const dispatch = useDispatch()
+  const router = useRouter()
   const cart = useSelector((state) => state.api.cart || { items: [] })
   const loading = useSelector((state) => state.api.cartLoading)
   const error = useSelector((state) => state.api.cartError)
@@ -36,13 +38,24 @@ export default function CartSidebar({ visible, onClose }) {
 
   const items = Array.isArray(cart.items) ? cart.items : []
 
+  const total = items.reduce((sum, it) => {
+    const price = Number(it.product?.price || 0)
+    return sum + price * it.quantity
+  }, 0)
+
+  function handleCheckout() {
+    if (!items.length) return
+    if (onClose) onClose(false)
+    router.push('/checkout')
+  }
+
   return (
-    <div className={`fixed inset-y-0 right-0 w-80 bg-white shadow-xl transform transition-transform ${visible ? 'translate-x-0' : 'translate-x-full'}`} style={{ zIndex: 60 }}>
+    <div className={`fixed inset-y-0 right-0 w-80 bg-white shadow-xl transform transition-transform ${visible ? 'translate-x-0' : 'translate-x-full'} flex flex-col`} style={{ zIndex: 60 }}>
       <div className="p-4 border-b flex items-center justify-between">
         <h3 className="text-lg font-semibold">Your Cart</h3>
         <button onClick={() => onClose && onClose(false)} className="text-gray-600">Close</button>
       </div>
-      <div className="p-4 overflow-auto h-full">
+      <div className="p-4 overflow-auto flex-1">
         {loading && <div className="text-sm text-gray-500">Loading...</div>}
         {error && <div className="text-sm text-red-500">{error}</div>}
         {!loading && !error && items.length === 0 && <div className="text-sm text-gray-600">Your cart is empty.</div>}
@@ -64,6 +77,23 @@ export default function CartSidebar({ visible, onClose }) {
             </li>
           ))}
         </ul>
+      </div>
+
+      {/* Bottom summary + Checkout button */}
+      <div className="border-t p-4 flex flex-col gap-2">
+        <div className="flex items-center justify-between text-sm font-medium">
+          <span>Total</span>
+          <span>₹{total.toFixed(2)}</span>
+        </div>
+        <button
+          onClick={handleCheckout}
+          disabled={!items.length}
+          className={`w-full py-2 rounded-md text-white text-sm font-semibold transition ${
+            items.length ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-300 cursor-not-allowed'
+          }`}
+        >
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   )
