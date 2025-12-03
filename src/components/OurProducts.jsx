@@ -1,15 +1,29 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useDispatch } from 'react-redux'
+import { addToCart } from '@/store/addToCartThunk'
 import Link from "next/link"
 import About from "./About"
 import Services from "./Services"
 import Classification from "./Classification"
 
+
 export default function OurProducts() {
-		const [products, setProducts] = useState([])
-		const [loading, setLoading] = useState(true)
-		const [error, setError] = useState("")
+	const [products, setProducts] = useState([])
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState("")
+	const [adding, setAdding] = useState({}) // { [productId]: true }
+	const dispatch = useDispatch()
+	// Add to cart handler
+	const handleAddToCart = async (productId) => {
+		setAdding((prev) => ({ ...prev, [productId]: true }))
+		try {
+			await dispatch(addToCart({ productId, quantity: 1 }))
+		} finally {
+			setAdding((prev) => ({ ...prev, [productId]: false }))
+		}
+	}
 
 		useEffect(() => {
 			const fetchProducts = async () => {
@@ -99,11 +113,20 @@ export default function OurProducts() {
 															{product.category && (
 																<p className="text-xs text-green-600 mb-1">{product.category.name}</p>
 															)}
-															<div className="mt-auto flex items-center justify-between">
+															<div className="mt-auto flex items-center justify-between gap-2">
 																<span className="font-semibold text-[#0f4b2e]">
 																	₹{Number(product.price || 0).toFixed(2)}
 																</span>
-																<span className="text-xs text-gray-400">View details</span>
+																<button
+																  className="px-3 py-1 bg-[#1B5439] text-white text-xs rounded hover:opacity-90 disabled:opacity-60"
+																  disabled={adding[product.id]}
+																  onClick={e => {
+																	e.preventDefault()
+																	handleAddToCart(product.id)
+																  }}
+																>
+																  {adding[product.id] ? 'Adding...' : 'Add to Cart'}
+																</button>
 															</div>
 														</div>
 													</article>

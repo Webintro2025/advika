@@ -14,6 +14,25 @@ export default function Navbar() {
 	const [scrolled, setScrolled] = useState(false)
 	const [showLogin, setShowLogin] = useState(false)
 	const [user, setUser] = useState(null)
+	// On mount, check for token in localStorage
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const token = localStorage.getItem('token')
+			if (token) {
+				setUser(true)
+			} else {
+				setUser(null)
+			}
+		}
+	}, [])
+
+	// Logout handler
+	function handleLogout() {
+		if (typeof window !== 'undefined') {
+			localStorage.removeItem('token')
+			setUser(null)
+		}
+	}
 
 	// framer-motion variants (kept for reference)
 	const navVariants = {
@@ -69,7 +88,13 @@ export default function Navbar() {
 							<span className="inline-block bg-[#0f4b2e]">
 								Wholesale prices for bulk buyers.
 							</span>
-							<span className="hidden sm:inline-block bg-[#f6c23e] text-[#07321a] font-semibold px-3 py-1 rounded-md">
+							<span
+								className="hidden sm:inline-block bg-[#f6c23e] text-[#07321a] font-semibold px-3 py-1 rounded-md cursor-pointer hover:bg-[#ffe082] transition-colors"
+								onClick={() => window.location.href = '/contact'}
+								tabIndex={0}
+								role="button"
+								aria-label="Quick Quote"
+							>
 								Quick Quote
 							</span>
 						</div>
@@ -174,10 +199,15 @@ export default function Navbar() {
 						</div>
 
 						<div className="flex items-center gap-4">
-							{/* Login button (desktop) */}
-							{!user && (
+
+							{/* Login/Logout button (desktop) */}
+							{!user ? (
 								<button onClick={() => setShowLogin(true)} className="block text-gray-700">
 									Login
+								</button>
+							) : (
+								<button onClick={handleLogout} className="block text-gray-700">
+									Logout
 								</button>
 							)}
 
@@ -236,8 +266,12 @@ export default function Navbar() {
 							</div>
 
 							<a href="/contact" className="block text-gray-700">Contact</a>
-							{!user && (
+
+							{/* Login/Logout button (mobile) */}
+							{!user ? (
 								<button onClick={() => setShowLogin(true)} className="block text-gray-700">Login</button>
+							) : (
+								<button onClick={handleLogout} className="block text-gray-700">Logout</button>
 							)}
 							<div className="pt-2 border-t mt-2">
 								<a href="tel:+917678556015" className="block text-sm text-[#0f4b2e]">+91 7678556015</a>
@@ -249,14 +283,14 @@ export default function Navbar() {
 
 				{/* Cart sidebar (mounted at top-level in navbar) */}
 				<CartSidebar visible={showCart} onClose={(v) => setShowCart(v)} />
-				<LoginModal
-  open={showLogin}
-  onClose={() => setShowLogin(false)}
-  onSuccess={(data) => {
-    setShowLogin(false)
-    setUser(data?.user || true)  // OTP verify hote hi logged-in mark
-  }}
-/>
+						<LoginModal
+							open={showLogin}
+							onClose={() => setShowLogin(false)}
+							onSuccess={(data) => {
+								setShowLogin(false)
+								setUser(true)  // Mark as logged in
+							}}
+						/>
 			</motion.nav>
 			{/* spacer to preserve document flow when nav is fixed (height matches nav bar)
 			    If the promo bar above is tall, increase this so content isn't covered. */}

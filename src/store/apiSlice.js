@@ -201,4 +201,5 @@ const apiSlice = createSlice({
 })
 
 export const { clearCategoriesError, clearProductsError } = apiSlice.actions
+export { fetchCart };
 export default apiSlice.reducer

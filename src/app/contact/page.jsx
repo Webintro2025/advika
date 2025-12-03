@@ -10,6 +10,8 @@ export default function Page() {
           <h1 className="text-4xl md:text-5xl font-bold">Contact Us</h1>
           <p className="mt-3 text-lg text-[#F6C23E]">Get in touch with Advika Naturals</p>
         </div>
+        <GetInTouch />
+        <Map />
       </div>
 
   
