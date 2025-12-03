@@ -42,12 +42,20 @@ export default function ProductPage() {
     if (!product) return;
     setAdding(true);
     try {
+      let cartId = null;
+      if (typeof window !== 'undefined') {
+        cartId = localStorage.getItem('cartId');
+      }
       const res = await fetch(`/api/cart`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: product.id, quantity: 1 }),
+        body: JSON.stringify({ productId: product.id, quantity: 1, cartId: cartId ? Number(cartId) : undefined }),
       });
-      if (!res.ok) throw new Error(await res.text());
+      const data = await res.json();
+      if (data && data.cartId && typeof window !== 'undefined') {
+        localStorage.setItem('cartId', data.cartId);
+      }
+      if (!res.ok) throw new Error(data?.error || 'Failed to add to cart');
       // open cart sidebar if available
       if (typeof window !== "undefined") {
         if (window.openCart) window.openCart();
@@ -73,6 +81,7 @@ export default function ProductPage() {
         <div>
           <div className="w-full bg-white rounded shadow p-4 flex items-center justify-center">
             {mainImage ? (
+              
               // eslint-disable-next-line @next/next/no-img-element
               <img src={mainImage} alt={product.name} className="object-contain w-full h-[500px]" />
             ) : (

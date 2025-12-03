@@ -113,21 +113,12 @@ export default function OurProducts() {
 															{product.category && (
 																<p className="text-xs text-green-600 mb-1">{product.category.name}</p>
 															)}
-															<div className="mt-auto flex items-center justify-between gap-2">
-																<span className="font-semibold text-[#0f4b2e]">
-																	₹{Number(product.price || 0).toFixed(2)}
-																</span>
-																<button
-																  className="px-3 py-1 bg-[#1B5439] text-white text-xs rounded hover:opacity-90 disabled:opacity-60"
-																  disabled={adding[product.id]}
-																  onClick={e => {
-																	e.preventDefault()
-																	handleAddToCart(product.id)
-																  }}
-																>
-																  {adding[product.id] ? 'Adding...' : 'Add to Cart'}
-																</button>
-															</div>
+																														<div className="mt-auto flex items-center justify-between gap-2">
+																																<span className="font-semibold text-[#0f4b2e]">
+																																		₹{Number(product.price || 0).toFixed(2)}
+																																</span>
+																																<span className="text-xs text-gray-400">View details</span>
+																														</div>
 														</div>
 													</article>
 												</Link>

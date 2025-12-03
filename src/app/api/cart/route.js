@@ -4,10 +4,13 @@ import prisma from '../../../lib/prisma'
 export async function GET(req) {
   try {
     const url = new URL(req.url)
+    const cartId = url.searchParams.get('cartId') ? parseInt(url.searchParams.get('cartId'), 10) : null
     const userId = url.searchParams.get('userId') ? parseInt(url.searchParams.get('userId'), 10) : null
 
-    let cart
-    if (userId) {
+    let cart = null
+    if (cartId) {
+      cart = await prisma.cart.findUnique({ where: { id: cartId }, include: { items: { include: { product: true } } } })
+    } else if (userId) {
       cart = await prisma.cart.findFirst({ where: { userId }, include: { items: { include: { product: true } } } })
     } else {
       // for guest, return the latest cart

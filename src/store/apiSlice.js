@@ -37,14 +37,19 @@ export const fetchProductById = createAsyncThunk('api/fetchProductById', async (
 // Cart thunks
 export const fetchCart = createAsyncThunk('api/fetchCart', async (_, { rejectWithValue }) => {
   try {
-    const res = await fetch('/api/cart')
-    const data = await res.json()
-    if (!res.ok) return rejectWithValue(data?.error || 'Failed to fetch cart')
-    return data
+    let cartId = null;
+    if (typeof window !== 'undefined') {
+      cartId = localStorage.getItem('cartId');
+    }
+    const url = cartId ? `/api/cart?cartId=${cartId}` : '/api/cart';
+    const res = await fetch(url);
+    const data = await res.json();
+    if (!res.ok) return rejectWithValue(data?.error || 'Failed to fetch cart');
+    return data;
   } catch (err) {
-    return rejectWithValue(err.message || 'Network error')
+    return rejectWithValue(err.message || 'Network error');
   }
-})
+});
 
 export const increaseCartItem = createAsyncThunk('api/increaseCartItem', async ({ cartItemId, amount = 1 }, { rejectWithValue, dispatch }) => {
   try {
