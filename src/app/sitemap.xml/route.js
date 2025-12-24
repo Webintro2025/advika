@@ -14,9 +14,9 @@ export async function GET() {
   );
 
   const allRoutes = [
+ ...locationSlugs.map((slug) => `/in/${slug}`),
  
- 
-    ...locationSlugs.map((slug) => `/${slug}`),
+   
   ];
 
   const urls = allRoutes
