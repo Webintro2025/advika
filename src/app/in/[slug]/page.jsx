@@ -37,7 +37,7 @@ export async function generateMetadata({ params }) {
     description,
     keywords,
     alternates: {
-      canonical: `https://advikanaturals.com/${slug}`,
+      canonical: `https://advikanaturals.com/in/${slug}`,
     },
   };
 }
